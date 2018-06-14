@@ -6,3 +6,11 @@ slug: week-2-project-r-package
 categories: []
 tags: []
 ---
+# ***$\color{orange}{\text{Basic Overview}}$***
+  
+  The project assigned for week 2 was to create a package in R with a delegated partner. Hunter Dunteman and I were partners and we decided to create a package which has the capability of calculating the areas for 7 different shapes. These shapes include: $\color{blue}{\text{triangles, circles, rectangles, parallelograms, ellipses, squares and trapezoids.}}$ Although the idea seemed simple at first glance, we felt it would be a beneficial learning experience in the long run since we would be able to fully understand the commands we were executing as well as thoroughly and correctly executing them. Additionally, we collaborated in order to come up with the desired code yet we individually coded the package, so that we could each experience the full effect of creating a package from scratch. We made sure to cover every base by including additional specific details to ensure the utmost thoughtful and thorough work possible.
+  
+#  ***$\color{orange}{\text{Strengths and Weaknessess}}$***
+  
+  Some things that we did well included touching upon the knit-picky details such as not allowing for a user to input a negative value for any area calculations. This not only encouraged a more thorough package but also instigated additional coding practice with If-Else statements. We also worked very well together, making sure to devote ample time to collaborate as well as listening to each others' ideas and recognizing our individual strengths/flaws. We could have improved upon 
+the organization within our package to ensure clarity and avoid any confusion within the machine or for the user. Additionally, we could have added more interesting data or tried harder to showcase the skills acquired during or prior to class. 
