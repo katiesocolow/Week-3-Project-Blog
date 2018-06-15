@@ -10,7 +10,58 @@ tags: []
   
   The project assigned for week 2 was to create a package in R with a delegated partner. Hunter Dunteman and I were partners and we decided to create a package which has the capability of calculating the areas for 7 different shapes. These shapes include: $\color{blue}{\text{triangles, circles, rectangles, parallelograms, ellipses, squares and trapezoids.}}$ Although the idea seemed simple at first glance, we felt it would be a beneficial learning experience in the long run since we would be able to fully understand the commands we were executing as well as thoroughly and correctly executing them. Additionally, we collaborated in order to come up with the desired code yet we individually coded the package, so that we could each experience the full effect of creating a package from scratch. We made sure to cover every base by including additional specific details to ensure the utmost thoughtful and thorough work possible.
   
+#### Function for Area of Circle  
+```{r}
+#' Calculate the area of a circle.
+#'
+#' @param r radius of a circle.
+#' @return The area of the circle.
+#' @examples
+#' area_circle(2)
+#' area_circle(pi)
+#' @export
+area_circle <- function(r) {
+  if (r > 0) {
+    pi * r**2
+  }
+  else {
+    "Can't have a negative value"
+  }
+}
+```
+
+#### Data set for Area of a Circle
+```{r}
+if (FALSE) {
+  geo_circle <- read.table(text = "
+                        radius area
+                        1     pi
+                        2     4 * pi
+                        3     9 * pi
+                        4     16 * pi
+                        5     25 * pi
+                        6     36 * pi
+                        7     49 * pi
+                        8     64 * pi
+                        ")
+  devtools::use_data(geo_circle, overwrite = TRUE)
+}
+```
+
+#### Testing
+```{r}
+# devtools::use_testthat()
+
+# library(geometry)
+# context("Area Circle")
+
+# test_that("area of a circle", {
+ # expect_equal(area_circle(1), pi)
+# })
+# need to install testthat package and run the devtools command. then can post this and blog post is done. covered on day-06 in 02-example - elliptical document
+```
+
 #  ***$\color{orange}{\text{Strengths and Weaknessess}}$***
   
   Some things that we did well included touching upon the knit-picky details such as not allowing for a user to input a negative value for any area calculations. This not only encouraged a more thorough package but also instigated additional coding practice with If-Else statements. We also worked very well together, making sure to devote ample time to collaborate as well as listening to each others' ideas and recognizing our individual strengths/flaws. We could have improved upon 
-the organization within our package to ensure clarity and avoid any confusion within the machine or for the user. Additionally, we could have added more interesting data or tried harder to showcase the skills acquired during or prior to class. 
+the organization within our package to ensure clarity and avoid any confusion within the machine or for the user. Additionally, we could have added more interesting data or tried harder to showcase the skills acquired during or prior to class. For example, I really enjoyed learning about web scraping so we could have attempted to include web scraping in our fuction. 

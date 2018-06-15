@@ -6,3 +6,49 @@ slug: the-infamous-kaggle-submissions
 categories: []
 tags: []
 ---
+While I have never had any experience with a data competition or Home Credit Loan Defaulting, I find the Kaggle project to be incredibly interesting and a very applicable way to practice modeling in R. 
+
+My initial approach to building the model was to use a linear regression model. After examining the variables intuitively and deciding which variables seemed to have a profound impact on the predictions, I plugged them all into the "glm" model. I then looked at the significance of each predictor to determine which were statistically significant and should remain in the model. I then went on to include a repeated cross validation approach through the "caret" package in order to evaluate the ROC value. After repeating this process several times, my best model received an accuracy rating of 0.710. 
+
+```{r}
+library(readr)
+library(kknn)
+library(zoo)
+library(dplyr)
+library(caret)
+
+train <- read.csv("data/application_train.csv", stringsAsFactors = T)
+test_data <- read.csv("data/application_test.csv", stringsAsFactors = T)
+
+train[is.na(train)] <- 0
+test_data[is.na(test_data)] <- 0
+
+train.index = sample(c("train", "test"), nrow(train), replace = TRUE, c(0.8, 0.2))
+data = split(train, train.index)
+
+data$train$TARGET = factor(data$train$TARGET, labels = c("no", "yes"))
+
+TRCONTROL = trainControl(
+  method = "repeatedcv",
+  number = 10,
+  repeats = 5,
+  classProbs = TRUE,
+  summaryFunction = twoClassSummary,
+  verboseIter = TRUE
+)
+
+fit <- train(TARGET ~ CODE_GENDER + AMT_CREDIT + AMT_ANNUITY + AMT_GOODS_PRICE + CNT_FAM_MEMBERS 
+               + AMT_REQ_CREDIT_BUREAU_HOUR + AMT_REQ_CREDIT_BUREAU_DAY + AMT_REQ_CREDIT_BUREAU_WEEK + AMT_REQ_CREDIT_BUREAU_YEAR +
+               NAME_FAMILY_STATUS + DAYS_BIRTH + DAYS_EMPLOYED + DAYS_ID_PUBLISH + HOUR_APPR_PROCESS_START + FLAG_WORK_PHONE + REGION_RATING_CLIENT_W_CITY + 
+               EXT_SOURCE_1 + EXT_SOURCE_2 + EXT_SOURCE_3 + YEARS_BUILD_AVG + ORGANIZATION_TYPE, data = data$train, method = "glm",
+             metric = "ROC",
+             na.action = na.pass,
+             trControl = trainControl(
+               method = "repeatedcv",
+               number = 10,
+               repeats = 5,
+               classProbs = TRUE,
+               summaryFunction = twoClassSummary,
+               verboseIter = TRUE
+             ))
+```

@@ -1,0 +1,36 @@
+---
+title: Web Scraping
+author: Katie Socolow
+date: '2018-06-15'
+slug: web-scraping
+categories: []
+tags: []
+---
+# Concept 
+Scraping the web is a very clever idea. These functions enable people to extract data from various locations on the internet and use that data on their own local machines. Before learning about this topic in class, I had never even heard of or considered this idea. This technique is beneficial as it acts as a type of shortcut between finding and using the data, eliminating the dowloading and importing steps. While somewhat risky and potentially impolite, being able to webscrape makes me feel kiiiinda like a "real" hacker and definitely like a badass.
+
+# Baseball Data
+For the week 1 homework assignment, we were assigned to web scrape baseball data. Since I am very interested in exploring the field of sports analytics I thought that this assignment would be a good opportunity for me to gain more experience working with sports data. Baseball is a frequently documented sport, with lots of data readily available on sports reference websites. The website from which I found this data was https://www.baseball-reference.com/bio/AL_born.shtml. The assignent was to support or refute the common consideration that most major league baseball players are born in August because the cut off for the baseball season is July, which would allow the athletes to be the oldest in the league. Perhaps being the oldest would allow the athletes to be the strongest or best in their divisions since they would have more experience than others? In order to examine this, I scraped data for all baseball players in the state of Alabama (since Alabama is a very popular baseball state). After some initial preprocessing and data rangling, I organized the players by their birthdays months and counted how many were born in each month. I was able to confirm the hypothesis that among all the players in Alabama, August had more births than any other month. 
+
+```{r results = "hide"}
+library(dplyr)
+library(stringr)
+library(rvest)
+library(tidyr)
+```
+
+```{r}
+url_baseball <- "https://www.baseball-reference.com/bio/AL_born.shtml"
+baseball <- read_html(url_baseball) %>% html_nodes(xpath = '//*[(@id = "bio_batting")]//tr//*[(((count(preceding-sibling::*) + 1) = 24) and parent::*)]') %>% html_text
+
+baseball2 <- data.frame(baseball) 
+baseball2 %>% separate(baseball, into = c("Month_Day", "Year"), sep = ",") %>% 
+  group_by(Month_Day, Year)
+```
+
+```{r}
+baseball3 <- baseball2 %>% separate(baseball, into = c("Month_Day", "Year"), sep = ",") %>% 
+  separate(Month_Day, into = c("Month", "Day"), sep = " ") %>% count(Month)
+baseball4 <- baseball3 %>% arrange(desc(n)) 
+baseball4[1:12,]
+```
