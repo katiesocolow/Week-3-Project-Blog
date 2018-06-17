@@ -1,0 +1,8 @@
+---
+title: Sports Analytics
+author: Katie Socolow
+date: '2018-06-15'
+slug: sports-analytics
+categories: []
+tags: []
+---

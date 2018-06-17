@@ -1,5 +1,5 @@
 ---
-title: Week 2 Project - R Package
+title: Week 2 Project R Package
 author: Katie Socolow
 date: '2018-06-12'
 slug: week-2-project-r-package
